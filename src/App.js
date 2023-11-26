@@ -1,15 +1,17 @@
 import React from 'react';
 import './App.css';
-import PropertySearch from './component/PropertySearch';
-import {SearchProvider} from './context/Contexts.js';
+import PropertySearch from './component/search/PropertySearch';
+import {SearchProvider} from './context/search.context.js';
+import AppBar from "./component/AppBar";
 
 function App(){
     return (
-        <SearchProvider>
             <div className="App">
-                <PropertySearch />
+                <AppBar/>
+                <SearchProvider>
+                    <PropertySearch />
+                </SearchProvider>
             </div>
-        </SearchProvider>
   )
 }
 

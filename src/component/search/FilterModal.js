@@ -2,10 +2,10 @@ import {Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText} fr
 import {FormControl, MenuItem, Select} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
-import {useSearchState} from '../context/Contexts.js';
+import {useSearchState} from '../../context/search.context.js';
 import Button from "@mui/material/Button";
 
-function FilterModal({open, setOpen }) {
+export default function FilterModal({open, setOpen }) {
     const { state: searchState, dispatch: searchDispatch } = useSearchState()
 
     const resetInputValues = () => {
@@ -59,7 +59,7 @@ function FilterModal({open, setOpen }) {
                         type="number"
                         label="Min Bedrooms"
                         value={localInputValues.minBedrooms}
-                        InputProps={{ inputProps: { min: 0 } }}
+                        InputProps={{ inputProps: { min: 1 } }}
                         onChange={(e) => handleInputChange('minBedrooms', e.target.value)}
                     />
                 </FormControl>
@@ -69,7 +69,7 @@ function FilterModal({open, setOpen }) {
                         type="number"
                         label="Min Bathrooms"
                         value={localInputValues.minBathrooms}
-                        InputProps={{ inputProps: { min: 0 } }}
+                        InputProps={{ inputProps: { min: 1 } }}
                         onChange={(e) => handleInputChange('minBathrooms', e.target.value)}
                     />
                 </FormControl>
@@ -109,5 +109,3 @@ function FilterModal({open, setOpen }) {
         </Dialog>
     );
 }
-
-export default FilterModal;
