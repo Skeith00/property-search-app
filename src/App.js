@@ -1,18 +1,15 @@
 import React from 'react';
 import './App.css';
-import PropertySearch from './component/search/PropertySearch';
-import {SearchProvider} from './context/search.context.js';
-import AppBar from "./component/AppBar";
+import {
+    RouterProvider,
+} from "react-router-dom"
+import {router} from "./route/Routes";
+
 
 function App(){
     return (
-            <div className="App">
-                <AppBar/>
-                <SearchProvider>
-                    <PropertySearch />
-                </SearchProvider>
-            </div>
-  )
+        <RouterProvider router={router} />
+    )
 }
 
 export default App;
