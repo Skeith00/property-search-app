@@ -2,10 +2,20 @@ import React, { useState } from 'react';
 import { useAuth } from '../../context/auth.context.js';
 import { Container, TextField, Typography, Button, Paper } from "@mui/material";
 
-export default function Login({ setToken }) {
-    const { login } = useAuth();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+export default function Login() {
+    const { login } = useAuth()
+
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: ''
+    })
+
+    const handleChange = (e) => {
+        setCredentials({
+          ...credentials,
+          [e.target.name]: e.target.value
+        });
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -16,10 +26,10 @@ export default function Login({ setToken }) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: { username: email, password }, // Convert the object to JSON
+                body: { username: credentials.email, password: credentials.email }, // Convert the object to JSON
             })
-            const token = response.data.token;
-            login(token);
+            const { accessToken, refreshToken } = response.data;
+            login(accessToken, refreshToken);
         } catch (error) {
             console.error('Login failed', error);
         }
@@ -35,12 +45,13 @@ export default function Login({ setToken }) {
                         margin="normal"
                         required
                         fullWidth
+                        type="email"
                         id="email"
                         label="Email"
                         name="email"
                         autoFocus
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={credentials.email}
+                        onChange={handleChange}
                     />
                     <TextField
                         variant="outlined"
@@ -51,8 +62,8 @@ export default function Login({ setToken }) {
                         label="Password"
                         type="password"
                         id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={credentials.password}
+                        onChange={handleChange}
                     />
                     <Button type="submit" fullWidth variant="contained" color="primary" style={{ marginTop: 16 }}>
                         Log In

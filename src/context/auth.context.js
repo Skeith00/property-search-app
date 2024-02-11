@@ -4,16 +4,16 @@ import { createContext, useContext, useState } from 'react';
 const AuthContext = createContext('auth')
 
 export function AuthProvider({ children }) {
-    const [token, setToken] = useState(localStorage.getItem('token') || null)
 
-    const login = (newToken) => {
-        setToken(newToken)
-        localStorage.setItem('token', newToken)
+    const login = (accessToken, refreshToken) => {
+        // Store the tokens in localStorage
+        localStorage.setItem('token', accessToken)
+        localStorage.setItem('refreshToken', refreshToken)
     }
 
     const logout = () => {
-        setToken(null)
         localStorage.removeItem('token')
+        localStorage.removeItem('refreshToken')
     }
 
     return (
