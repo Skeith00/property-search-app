@@ -36,7 +36,7 @@ export default function Login() {
     }
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" sx={{ mt: 16 }}>
             <Paper elevation={3} style={{ padding: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant="h5">Login</Typography>
                 <form onSubmit={handleLogin} style={{ width: '100%', marginTop: 16 }}>

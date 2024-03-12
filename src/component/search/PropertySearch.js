@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 import FilterModal from './FilterModal';
-import {useSearchState} from '../../context/search.context.js';
 import PropertyResults from "./PropertyResult";
+import {useSearchState} from '../../context/search.context.js';
+import {Container, TextField, Button, InputAdornment} from "@mui/material";
 
 export default function PropertySearch() {
-    const { state, dispatch } = useSearchState();
+    const { state, dispatch } = useSearchState()
     const [open, setOpen] = useState(false) // State for modal dialog
     const [isLoading, setIsLoading] = useState(false) // State for results loading icon
     const [data, setData] = useState(null) // State for results loading icon
@@ -69,28 +67,38 @@ export default function PropertySearch() {
         </Button>
     )
 
+    const SearchButton = () => (
+        <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isLoading}
+            sx={{ m: 1 }}
+        >
+            Search
+        </Button>
+    )
+
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
             <h1 style={{ textAlign: 'center' }}>Property Search</h1>
             <form onSubmit={handleSearchSubmit}>
                 <TextField
                     fullWidth
+                    variant="outlined"
                     label="Suburb:"
                     value={state.suburb}
                     //onChange={handleSuburb}
-                    InputProps={{endAdornment: <FilterButton />}}
-
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <FilterButton />
+                                <SearchButton />
+                            </InputAdornment>
+                        ),
+                    }}
                 />
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    style={{ marginTop: '16px' }}
-                    disabled={isLoading}
-                >
-                    Search
-                </Button>
+
             </form>
             <FilterModal open={open} setOpen={setOpen} handleStateChange={handleStateChange}/>
 

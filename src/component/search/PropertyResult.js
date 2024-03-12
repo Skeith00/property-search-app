@@ -5,13 +5,18 @@ import LoadingSpinner from "../LoadingSpinner";
 
 export default function PropertyResults({properties, isLoading}) {
 
+    const transformProperty = (property) => {
+        // TODO: transforms BE object into our FE model
+        return property
+    }
+
     const renderProperties = (properties) => {
         let cards = 'No Results'
         if (properties == null) {
             cards = ''
         } else if(properties.length > 0) {
             cards = properties.map(property => {
-                return <PropertyCard images='' price={property.price} location={property.location}/>
+                return <PropertyCard property={transformProperty(property)}/>
             })
         }
         return cards
