@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Typography, Box } from '@mui/material';
+import { Step1, Step2 } from './SignUpSteps';
 
 export default function SignUp() {
 

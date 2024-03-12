@@ -12,11 +12,6 @@ const Step1 = ({ formData, setFormData, nextStep }) => {
         });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        nextStep();
-    };
-
     return (
         <form onSubmit={nextStep}>
             <TextField

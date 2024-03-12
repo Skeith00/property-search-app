@@ -56,7 +56,7 @@ const Step2 = ({ formData, setFormData, prevStep, handleSubmit }) => {
       <Button
         type="button"
         variant="contained"
-        color="default"
+        color="primary"
         fullWidth
         onClick={prevStep}
         sx={{ marginTop: 2, marginRight: 2 }}
