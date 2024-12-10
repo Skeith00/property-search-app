@@ -21,6 +21,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/.idea/property-search-app.iml
-/.idea/modules.xml
-/.idea/vcs.xml
+/.idea
