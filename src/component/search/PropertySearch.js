@@ -2,7 +2,51 @@ import React, { useState } from 'react';
 import FilterModal from './FilterModal';
 import PropertyResults from "./PropertyResult";
 import {useSearchState} from '../../context/search.context.js';
-import {Container, TextField, Button, InputAdornment} from "@mui/material";
+import {Container, Box, TextField, Button, InputAdornment} from "@mui/material";
+
+const FilterButton = ({ onClick, isLoading, activeFiltersCount }) => (
+    <Button
+        variant="contained"
+        color="primary"
+        onClick={onClick}
+        //onClick={() => setOpen(true)}
+        disabled={isLoading}
+    >
+        Filters
+        {activeFiltersCount > 0 && (
+            <Box
+                component="span"
+                sx={{
+                    ml: 1, // Add margin-left for spacing
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: (theme) => theme.palette.secondary.main,
+                    color: (theme) => theme.palette.primary.main,
+                    borderRadius: "50%",
+                    width: 24,
+                    height: 24,
+                    fontSize: "0.875rem", // Adjust font size
+                    fontWeight: "bold",
+                }}
+            >
+                {activeFiltersCount}
+            </Box>
+        )}
+    </Button>
+)
+
+const SearchButton = ({ isLoading }) => (
+    <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        disabled={isLoading}
+        sx={{ m: 1 }}
+    >
+        Search
+    </Button>
+)
 
 export default function PropertySearch() {
     const { state, dispatch } = useSearchState()
@@ -14,6 +58,10 @@ export default function PropertySearch() {
         // Dispatch an action to update id value
         dispatch({ type: 'update', id: id, value: value });
     }
+
+    const activeFiltersCount = Object.values(state).filter(
+        (value) => value !== "" && value !== 0 && value !== null && value !== undefined
+    ).length;
 
     const handleSearchSubmit = async (e) => {
         e.preventDefault();
@@ -56,31 +104,8 @@ export default function PropertySearch() {
         setIsLoading(false)
     }
 
-    const FilterButton = () => (
-        <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setOpen(true)}
-            disabled={isLoading}
-        >
-            Filters
-        </Button>
-    )
-
-    const SearchButton = () => (
-        <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={isLoading}
-            sx={{ m: 1 }}
-        >
-            Search
-        </Button>
-    )
-
     return (
-        <Container maxWidth="lg" >
+        <Container maxWidth="md" >
             <h1 style={{ textAlign: 'center' }}>Property Search</h1>
             <form onSubmit={handleSearchSubmit}>
                 <TextField
@@ -92,8 +117,8 @@ export default function PropertySearch() {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <FilterButton />
-                                <SearchButton />
+                                <FilterButton onClick={() => setOpen(true)} isLoading={isLoading} activeFiltersCount={activeFiltersCount} />
+                                <SearchButton isLoading={isLoading} />
                             </InputAdornment>
                         ),
                     }}

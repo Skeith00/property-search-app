@@ -1,18 +1,28 @@
-import {Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText} from "@mui/material";
-import {FormControl, MenuItem, Select} from "@mui/material";
+import {
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    FormControl,
+    IconButton,
+    MenuItem,
+    Select,
+    Stack,
+    TextField
+} from "@mui/material";
 import React, {useEffect, useState} from "react";
-import TextField from "@mui/material/TextField";
+import CloseIcon from '@mui/icons-material/Close';
 import {useSearchState} from '../../context/search.context.js';
-import Button from "@mui/material/Button";
 
 export default function FilterModal({open, setOpen }) {
-    const { state: searchState, dispatch: searchDispatch } = useSearchState()
+    const { state, dispatch } = useSearchState()
 
     const resetInputValues = () => {
         return {
-            minBedrooms: searchState.minBedrooms,
-            minBathrooms: searchState.minBathrooms,
-            priceRange: searchState.priceRange
+            minBedrooms: state.minBedrooms || "",
+            minBathrooms: state.minBathrooms || "",
+            priceRange: state.priceRange || "",
         }
     }
 
@@ -20,8 +30,7 @@ export default function FilterModal({open, setOpen }) {
 
     useEffect(() => {
         setLocalInputValues(resetInputValues)
-    }, [open])
-
+    }, [open, state])
 
     const handleInputChange = (name, value) => {
         setLocalInputValues((prevValues) => ({
@@ -39,21 +48,39 @@ export default function FilterModal({open, setOpen }) {
             minBathrooms: isNaN(minBathrooms) ? "" : minBathrooms,
             priceRange: localInputValues.priceRange,
         };
-        searchDispatch({ type: 'update', payload });
+        dispatch({ type: 'update', payload });
         setOpen(false)
     }
 
     const clearFilter = () => {
-        searchDispatch({ type: 'delete'});
-        setOpen(false)
+        dispatch({ type: 'delete'});
     }
+
+    const handleClose = () => setOpen(false);
 
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
-            <DialogTitle>Filter Properties</DialogTitle>
+            <DialogTitle
+                sx={{
+                    textAlign: "center", // Centers the title text
+                }}
+            >Filter Properties
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.primary.main,
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
             <DialogContent>
-                <DialogContentText>Use the filters below:</DialogContentText>
-                <FormControl fullWidth>
+                {/*<DialogContentText>Use the filters below:</DialogContentText>*/}
+                <FormControl fullWidth sx={{ mb: 1, mt: 2 }}>
                     <TextField
                         fullWidth
                         type="number"
@@ -63,7 +90,7 @@ export default function FilterModal({open, setOpen }) {
                         onChange={(e) => handleInputChange('minBedrooms', e.target.value)}
                     />
                 </FormControl>
-                <FormControl fullWidth>
+                <FormControl fullWidth sx={{ mb: 1 }}>
                     <TextField
                         fullWidth
                         type="number"
@@ -73,7 +100,7 @@ export default function FilterModal({open, setOpen }) {
                         onChange={(e) => handleInputChange('minBathrooms', e.target.value)}
                     />
                 </FormControl>
-                <FormControl fullWidth>
+                <FormControl fullWidth sx={{ mb: 1 }}>
                     <Select
                         value={localInputValues.priceRange}
                         onChange={(e) => handleInputChange('priceRange', e.target.value)}
@@ -87,24 +114,29 @@ export default function FilterModal({open, setOpen }) {
                 </FormControl>
             </DialogContent>
             <DialogActions>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    onClick={updateFilter}
-                    style={{ marginTop: '16px' }}
-                >
-                    Apply
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    onClick={clearFilter}
-                    style={{ marginTop: '16px' }}
-                >
-                    Clear
-                </Button>
+                <Stack direction="row" spacing={2} sx={{ width: '100%', justifyContent: 'flex-end' }}>
+                    <span
+                        onClick={clearFilter}
+                        style={{
+                            cursor: 'pointer',
+                            textDecoration: 'underline',
+                            color: 'blue',
+                            marginTop: '16px',
+                            textAlign: 'right',
+                        }}
+                    >
+                        Clear all filters
+                    </span>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        //fullWidth
+                        onClick={updateFilter}
+                        style={{ marginTop: '16px' }}
+                    >
+                        Apply
+                    </Button>
+                </Stack>
             </DialogActions>
         </Dialog>
     );

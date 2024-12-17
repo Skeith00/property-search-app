@@ -17,7 +17,7 @@ export function SearchProvider({ children }) {
                 return { ...state, ...action.payload };
             }
             case 'delete': {
-                return initialState
+                return { ...state, ...initialState }; // Ensure a fresh reset
             }
             default:
                 return state
