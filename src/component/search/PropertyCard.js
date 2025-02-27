@@ -7,8 +7,8 @@ import { CardActionArea } from '@mui/material';
 
 export default function PropertyCard({property}) {
     return (
-        <Card sx={{ width: '100%' }}>
-            <CardActionArea sx={{ px: 10, py: 5 }}>
+        <Card sx={{ width: '100%', mt: 2 }}>
+            <CardActionArea sx={{ px: 10, py: 3 }}>
                 <CardMedia
                     component="img"
                     height="140"
@@ -16,10 +16,10 @@ export default function PropertyCard({property}) {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {property.price}
+                        {property.price}$
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {property.location}
+                    <Typography variant="h6" color="text.secondary">
+                        {property.address}
                     </Typography>
                 </CardContent>
             </CardActionArea>

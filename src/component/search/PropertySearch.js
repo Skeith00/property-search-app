@@ -77,15 +77,13 @@ export default function PropertySearch() {
 
         // Perform API request with the searchFilters data
         try {
-            let payload = JSON.stringify(searchFilters)
-            console.log(payload)
-            const response = await fetch('https://655b46c7ab37729791a8d390.mockapi.io/search/properties', {
-                //method: 'POST', // Adjust the HTTP method as needed (e.g., 'GET', 'POST', etc.)
-                method: 'GET', // Adjust the HTTP method as needed (e.g., 'GET', 'POST', etc.)
+            const response = await fetch('/property/search', {
+                //method: 'GET', // Adjust the HTTP method as needed (e.g., 'GET', 'POST', etc.)
+                method: 'POST', // Adjust the HTTP method as needed (e.g., 'GET', 'POST', etc.)
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                //body: payload, // Convert the object to JSON
+                body: JSON.stringify(searchFilters), // Convert the object to JSON
             })
 
             if (response.ok) {

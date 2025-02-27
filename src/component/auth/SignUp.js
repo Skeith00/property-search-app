@@ -5,10 +5,11 @@ import { Step1, Step2 } from './SignUpSteps';
 export default function SignUp() {
 
     const [formData, setFormData] = useState({
-        username: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        name: '',
+        surname: ''
     });
 
     const [step, setStep] = useState(1);
@@ -19,16 +20,14 @@ export default function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { name, surname, email, password } = formData.data;
             const response = await fetch('/api/register', {
                 method: 'POST', // Adjust the HTTP method as needed (e.g., 'GET', 'POST', etc.)
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: { name, surname, email, password }, // Convert the object to JSON
+                body: JSON.stringify(formData), // Stringify the object
             })
             console.log('Form submitted:', formData);
-
         } catch (error) {
             console.error('Register failed', error);
         }

@@ -5,6 +5,7 @@ import {router} from "./route/routes";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { red, lime } from '@mui/material/colors';
+import "./service/fetch";
 
 const theme = createTheme({
     typography: {

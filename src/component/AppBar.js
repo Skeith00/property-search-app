@@ -15,7 +15,11 @@ import AdbIcon from '@mui/icons-material/Adb';
 import stringAvatar from '../utils/avatarHelper';
 
 const pages = ['Buy', 'Rent', 'Sell', 'Blog'];
-const settings = ['Profile', 'Logout'];
+const settings = [
+    {"name":"Profile", "url": "/"},
+    {"name":"Manage", "url": "/admin"},
+    {"name":"Logout", "url": "/"}
+]
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -102,7 +106,7 @@ function ResponsiveAppBar() {
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -152,8 +156,8 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center" href={setting.url}>{setting.name}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
