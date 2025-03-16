@@ -1,13 +1,11 @@
 import React from 'react';
-import Admin from "../component/admin/Admin";
-import AppBar from "../component/AppBar";
 import NewProperty from "../component/admin/NewProperty";
+import PageWithAppBar from "../component/PageWithAppBar";
 
 export default function NewPropertyPage() {
   return (
-      <>
-        <AppBar/>
-        <NewProperty />
-      </>
+      <PageWithAppBar>
+          <NewProperty/>
+      </PageWithAppBar>
   )
 }

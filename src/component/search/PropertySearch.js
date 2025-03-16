@@ -103,7 +103,7 @@ export default function PropertySearch() {
     }
 
     return (
-        <Container maxWidth="md" >
+        <Container maxWidth="md">
             <h1 style={{ textAlign: 'center' }}>Property Search</h1>
             <form onSubmit={handleSearchSubmit}>
                 <TextField

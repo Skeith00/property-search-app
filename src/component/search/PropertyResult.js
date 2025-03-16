@@ -16,7 +16,7 @@ export default function PropertyResults({properties, isLoading}) {
             cards = ''
         } else if(properties.length > 0) {
             cards = properties.map(property => {
-                return <PropertyCard property={transformProperty(property)}/>
+                return <PropertyCard key={property.id} property={transformProperty(property)}/>
             })
         }
         return cards
