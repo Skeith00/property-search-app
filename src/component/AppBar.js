@@ -13,12 +13,13 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import stringAvatar from '../utils/avatarHelper';
+import {Link} from "@mui/material";
 
 const pages = ['Buy', 'Rent', 'Sell', 'Blog'];
 const settings = [
-    {"name":"Profile", "url": "/"},
+    {"name":"Profile", "url": "/profile"},
     {"name":"Manage", "url": "/admin"},
-    {"name":"Logout", "url": "/"}
+    {"name":"Logout", "url": "/logout"}
 ]
 
 function ResponsiveAppBar() {
@@ -157,7 +158,11 @@ function ResponsiveAppBar() {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center" href={setting.url}>{setting.name}</Typography>
+                                    <Typography textAlign="center">
+                                        <Link  href={setting.url}>
+                                            {setting.name}
+                                        </Link>
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>

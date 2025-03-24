@@ -102,6 +102,7 @@ export default function FilterModal({open, setOpen }) {
                 </FormControl>
                 <FormControl fullWidth sx={{ mb: 1 }}>
                     <Select
+                        label="Price Range"
                         value={localInputValues.priceRange}
                         onChange={(e) => handleInputChange('priceRange', e.target.value)}
                     >

@@ -6,7 +6,7 @@ export default function PageWithAppBar({ children }) {
     return (
         <Box>
             <AppBar />
-            <Container maxWidth="md">{children}</Container>
+            <Container maxWidth="lg">{children}</Container>
         </Box>
     )
 }

@@ -1,6 +1,5 @@
 import * as React from "react";
 import PropertyCard from "./PropertyCard";
-import {Grid} from "@mui/material";
 import LoadingSpinner from "../LoadingSpinner";
 
 export default function PropertyResults({properties, isLoading}) {
@@ -23,8 +22,8 @@ export default function PropertyResults({properties, isLoading}) {
     }
 
     return (
-        <Grid container spacing={0} direction="column" alignItems="center" justify="center">
+        <>
             {isLoading ? <LoadingSpinner /> : renderProperties(properties) }
-        </Grid>
+        </>
     )
 }
